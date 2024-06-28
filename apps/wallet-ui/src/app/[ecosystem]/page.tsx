@@ -1,3 +1,14 @@
+import { redirect } from "next/navigation";
+import { getCurrentUser } from "./auth";
+
 export default function Page() {
-  return <div>Page</div>;
+  const userAddress = getCurrentUser();
+
+  if (!userAddress) {
+    redirect("/login"); // This will route to /[ecosystem]/login based on the subdomain routing
+  } else {
+    redirect(`/${userAddress}/`);
+  }
+
+  return null;
 }
