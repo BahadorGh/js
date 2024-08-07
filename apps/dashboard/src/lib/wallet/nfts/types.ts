@@ -52,11 +52,15 @@ import {
 import type { NFTInput } from "thirdweb/utils";
 
 type NFT = {
-  metadata: Omit<NFTInput, "animation_url" | "external_url" | "image"> & {
-    animation_url: string | null | undefined;
-    external_url: string | null | undefined;
-    image: string | null | undefined;
-  };
+  metadata: {
+    name?: string;
+    description?: string;
+    image?: string | null;
+    animation_url?: string | null;
+    external_url?: string | null;
+    background_color?: string;
+    properties?: Record<string, unknown> | Array<Record<string, unknown>>;
+  } & Record<string, unknown>;
   owner: string;
   type: "ERC1155" | "ERC721";
   supply: string;
