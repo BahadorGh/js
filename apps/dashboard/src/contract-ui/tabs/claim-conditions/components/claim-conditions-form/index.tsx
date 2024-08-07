@@ -1,5 +1,5 @@
 import { AdminOnly } from "@3rdweb-sdk/react/components/roles/admin-only";
-import { useIsAdminV2 } from "@3rdweb-sdk/react/hooks/useContractRoles";
+import { useIsAdmin } from "@3rdweb-sdk/react/hooks/useContractRoles";
 import {
   Alert,
   AlertDescription,
@@ -207,7 +207,7 @@ export const ClaimConditionsForm: React.FC<ClaimConditionsFormProps> = ({
   const walletAddress = useActiveAccount()?.address;
   const trackEvent = useTrack();
   const [resetFlag, setResetFlag] = useState(false);
-  const isAdmin = useIsAdminV2(contractV5);
+  const isAdmin = useIsAdmin(contractV5);
   const [openSnapshotIndex, setOpenSnapshotIndex] = useState(-1);
   const setClaimConditionsQuery = useSetClaimConditions(contract, tokenId);
 

@@ -1,6 +1,6 @@
 import { thirdwebClient } from "@/constants/client";
 import {
-  useIsAdminV2,
+  useIsAdmin,
   useIsMinter,
 } from "@3rdweb-sdk/react/hooks/useContractRoles";
 import {
@@ -61,7 +61,7 @@ export const ContractChecklist: React.FC<ContractChecklistProps> = ({
     },
   ];
 
-  const isAdmin = useIsAdminV2(contractv5);
+  const isAdmin = useIsAdmin(contractv5);
   const isMinter = useIsMinter(contractv5);
 
   if (!isAdmin) {

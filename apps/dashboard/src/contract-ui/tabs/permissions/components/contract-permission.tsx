@@ -1,4 +1,4 @@
-import { useIsAdminV2 } from "@3rdweb-sdk/react/hooks/useContractRoles";
+import { useIsAdmin } from "@3rdweb-sdk/react/hooks/useContractRoles";
 import { Flex, Icon, Select, Spinner, Stack } from "@chakra-ui/react";
 import type { ValidContractInstance } from "@thirdweb-dev/sdk";
 import { thirdwebClient } from "lib/thirdweb-client";
@@ -40,7 +40,7 @@ export const ContractPermission: React.FC<ContractPermissionProps> = ({
     chain,
     client: thirdwebClient,
   });
-  const isAdmin = useIsAdminV2(contractV5);
+  const isAdmin = useIsAdmin(contractV5);
 
   return (
     <Card position="relative">
@@ -276,7 +276,7 @@ export const ContractPermission: React.FC<ContractPermissionProps> = ({
           ) : (
             isRestricted &&
             role &&
-            contract && <PermissionEditor role={role} contract={contract} />
+            contract && <PermissionEditor role={role} contract={contractV5} />
           )}
         </Stack>
       </Flex>
