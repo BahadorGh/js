@@ -1,7 +1,7 @@
 import { MinterOnly } from "@3rdweb-sdk/react/components/roles/minter-only";
 import { Icon, useDisclosure } from "@chakra-ui/react";
 import { thirdwebClient } from "lib/thirdweb-client";
-import { defineDashboardChain } from "lib/v5-adapter";
+import { useV5DashboardChain } from "lib/v5-adapter";
 import { FiPlus } from "react-icons/fi";
 import { getContract } from "thirdweb";
 import { Button, Drawer } from "tw-components";
@@ -18,9 +18,10 @@ export const TokenMintButton: React.FC<TokenMintButtonProps> = ({
   ...restButtonProps
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const chain = useV5DashboardChain(chainId);
   const contract = getContract({
     address: contractAddress,
-    chain: defineDashboardChain(chainId),
+    chain,
     client: thirdwebClient,
   });
   return (
