@@ -1,12 +1,13 @@
 import {
-  useIsAdmin,
   useIsAdminOrSelf,
+  useIsAdminV2,
 } from "@3rdweb-sdk/react/hooks/useContractRoles";
 import type { ValidContractInstance } from "@thirdweb-dev/sdk";
+import type { ThirdwebContract } from "thirdweb";
 import type { ComponentWithChildren } from "types/component-with-children";
 
 interface AdminOnlyProps {
-  contract?: ValidContractInstance;
+  contract: ThirdwebContract;
   fallback?: JSX.Element;
 }
 
@@ -15,14 +16,16 @@ export const AdminOnly: ComponentWithChildren<AdminOnlyProps> = ({
   contract,
   fallback,
 }) => {
-  const isAdmin = useIsAdmin(contract);
+  const isAdmin = useIsAdminV2(contract);
   if (!isAdmin) {
     return fallback ?? null;
   }
   return <>{children}</>;
 };
 
-interface AdminOrSelfOnlyProps extends AdminOnlyProps {
+interface AdminOrSelfOnlyProps {
+  contract?: ValidContractInstance;
+  fallback?: JSX.Element;
   /**
    * The address of the account to check against
    */

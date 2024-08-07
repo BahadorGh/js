@@ -38,7 +38,24 @@ function useIsAccountRole<TContract extends ContractWithRoles>(
   return !!(account && data?.includes(account));
 }
 
-export function useIsAdmin<TContract extends ValidContractInstance>(
+// This hook serves the same purposes as `useIsAdmin` - however it ues only SDK v5 code
+// and is part of the progressive migration to v5
+export function useIsAdminV2(contract: ThirdwebContract) {
+  const address = useActiveAccount()?.address;
+  const { data: userIsAdmin, isError } = useReadContract(hasRole, {
+    contract,
+    targetAccountAddress: address ?? "",
+    role: "admin",
+    queryOptions: { enabled: !!address },
+  });
+
+  // If the request results in an error, it's likely that the contract is a non-thirdweb contract
+  // in that case we return `true` anyway
+  return userIsAdmin || isError;
+}
+
+// @internal
+function useIsAdmin<TContract extends ValidContractInstance>(
   contract: RequiredParam<TContract>,
 ) {
   const address = useActiveAccount()?.address;

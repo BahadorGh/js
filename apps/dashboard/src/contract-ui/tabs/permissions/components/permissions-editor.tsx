@@ -18,11 +18,13 @@ import {
 } from "@chakra-ui/react";
 import type { ValidContractInstance } from "@thirdweb-dev/sdk";
 import { DelayedDisplay } from "components/delayed-display/delayed-display";
+import { thirdwebClient } from "lib/thirdweb-client";
+import { defineDashboardChain } from "lib/v5-adapter";
 import { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { BiPaste } from "react-icons/bi";
 import { FiCopy, FiInfo, FiPlus, FiTrash } from "react-icons/fi";
-import { ZERO_ADDRESS, isAddress } from "thirdweb";
+import { ZERO_ADDRESS, getContract, isAddress } from "thirdweb";
 import { Button, FormErrorMessage, Text } from "tw-components";
 
 interface PermissionEditorProps {
@@ -57,6 +59,12 @@ export const PermissionEditor: React.FC<PermissionEditorProps> = ({
     setAddress("");
   };
 
+  const contractV5 = getContract({
+    address: contract.getAddress(),
+    chain: defineDashboardChain(contract.chainId),
+    client: thirdwebClient,
+  });
+
   return (
     <Stack spacing={2}>
       {!fields?.length && (
@@ -90,7 +98,7 @@ export const PermissionEditor: React.FC<PermissionEditorProps> = ({
           contract={contract}
         />
       ))}
-      <AdminOnly contract={contract as ValidContractInstance}>
+      <AdminOnly contract={contractV5}>
         <FormControl
           isDisabled={isSubmitting}
           isInvalid={address && isDisabled}
