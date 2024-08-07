@@ -1,6 +1,9 @@
 import { ButtonGroup, Divider, Flex } from "@chakra-ui/react";
 import { useContract } from "@thirdweb-dev/react";
 import { extensionDetectedState } from "components/buttons/ExtensionDetectButton";
+import { detectFeatures as _detectFeatures } from "components/contract-components/utils";
+import { hasNewClaimConditions } from "lib/claimcondition-utils";
+import { useMemo } from "react";
 import { Card, Heading, LinkButton, Text } from "tw-components";
 import { ClaimConditions } from "./components/claim-conditions";
 
@@ -35,6 +38,13 @@ export const ContractClaimConditionsPage: React.FC<
     return <div>Loading...</div>;
   }
 
+  const contractInfo = useMemo(() => {
+    return {
+      hasNewClaimConditions: hasNewClaimConditions(contractQuery.contract),
+      isErc20: _detectFeatures(contractQuery.contract, ["ERC20"]),
+    };
+  }, [contractQuery.contract]);
+
   if (!detectedFeature) {
     return (
       <Card as={Flex} flexDir="column" gap={3}>
@@ -63,7 +73,10 @@ export const ContractClaimConditionsPage: React.FC<
 
   return (
     <Flex direction="column" gap={6}>
-      <ClaimConditions contract={contractQuery.contract} />
+      <ClaimConditions
+        contract={contractQuery.contract}
+        contractInfo={contractInfo}
+      />
     </Flex>
   );
 };
