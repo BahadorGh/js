@@ -1,6 +1,6 @@
 import {
-  useIsAdminOrSelf,
   useIsAdmin,
+  useIsAdminOrSelf,
 } from "@3rdweb-sdk/react/hooks/useContractRoles";
 import type { ThirdwebContract } from "thirdweb";
 import type { ComponentWithChildren } from "types/component-with-children";
