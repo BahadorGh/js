@@ -516,7 +516,7 @@ export const ClaimConditionsForm: React.FC<ClaimConditionsFormProps> = ({
                   }}
                 >
                   <ClaimConditionsPhase
-                    contract={contract}
+                    contract={contractV5}
                     onRemove={() => {
                       removePhase(index);
                       if (!isMultiPhase) {
