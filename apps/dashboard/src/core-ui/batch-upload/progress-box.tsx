@@ -5,7 +5,7 @@ import { Text } from "tw-components";
 type UploadProgressEvent = {
   progress: number;
   total: number;
-}
+};
 interface ProgressBoxProps {
   progress: UploadProgressEvent;
 }

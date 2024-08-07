@@ -36,7 +36,7 @@ import {
   hasMultiphaseClaimConditions,
 } from "lib/claimcondition-utils";
 import { thirdwebClient } from "lib/thirdweb-client";
-import { defineDashboardChain } from "lib/v5-adapter";
+import { useV5DashboardChain } from "lib/v5-adapter";
 import { Fragment, createContext, useContext, useMemo, useState } from "react";
 import {
   type UseFieldArrayReturn,
@@ -192,13 +192,15 @@ export const ClaimConditionsForm: React.FC<ClaimConditionsFormProps> = ({
   tokenId,
   isColumn,
 }) => {
-  const contractV5 = contract
-    ? getContract({
-        address: contract.getAddress(),
-        chain: defineDashboardChain(contract.chainId),
-        client: thirdwebClient,
-      })
-    : null;
+  const chain = useV5DashboardChain(contract?.chainId);
+  const contractV5 =
+    chain && contract
+      ? getContract({
+          address: contract.getAddress(),
+          chain,
+          client: thirdwebClient,
+        })
+      : null;
 
   const { isMultiPhase, isClaimPhaseV1, isErc20 } = useMemo(() => {
     return {
