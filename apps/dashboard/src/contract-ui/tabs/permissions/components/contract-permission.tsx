@@ -1,11 +1,13 @@
-import { useIsAdmin } from "@3rdweb-sdk/react/hooks/useContractRoles";
 import { Flex, Icon, Select, Spinner, Stack } from "@chakra-ui/react";
 import type { ValidContractInstance } from "@thirdweb-dev/sdk";
 import { useFormContext } from "react-hook-form";
 import { FiInfo } from "react-icons/fi";
-import { ZERO_ADDRESS } from "thirdweb";
+import { getContract, ZERO_ADDRESS } from "thirdweb";
 import { Card, Heading, Text } from "tw-components";
 import { PermissionEditor } from "./permissions-editor";
+import { useIsAdminV2 } from "@3rdweb-sdk/react/hooks/useContractRoles";
+import { defineDashboardChain } from "lib/v5-adapter";
+import { thirdwebClient } from "lib/thirdweb-client";
 
 interface ContractPermissionProps {
   role: string;
@@ -32,8 +34,12 @@ export const ContractPermission: React.FC<ContractPermissionProps> = ({
   const isRestricted =
     !roleMembers.includes(ZERO_ADDRESS) ||
     (role !== "transfer" && role !== "lister" && role !== "asset");
-
-  const isAdmin = useIsAdmin(contract as ValidContractInstance);
+  const contractV5 = getContract({
+    address: contract.getAddress(),
+    chain: defineDashboardChain(contract.chainId),
+    client: thirdwebClient,
+  });
+  const isAdmin = useIsAdminV2(contractV5);
 
   return (
     <Card position="relative">
