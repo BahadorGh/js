@@ -19,7 +19,7 @@ import {
 import type { ValidContractInstance } from "@thirdweb-dev/sdk";
 import { DelayedDisplay } from "components/delayed-display/delayed-display";
 import { thirdwebClient } from "lib/thirdweb-client";
-import { defineDashboardChain } from "lib/v5-adapter";
+import { useV5DashboardChain } from "lib/v5-adapter";
 import { useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { BiPaste } from "react-icons/bi";
@@ -59,9 +59,11 @@ export const PermissionEditor: React.FC<PermissionEditorProps> = ({
     setAddress("");
   };
 
+  const chain = useV5DashboardChain(contract.chainId);
+
   const contractV5 = getContract({
     address: contract.getAddress(),
-    chain: defineDashboardChain(contract.chainId),
+    chain,
     client: thirdwebClient,
   });
 

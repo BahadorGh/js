@@ -2,7 +2,7 @@ import { thirdwebClient } from "@/constants/client";
 import { AdminOnly } from "@3rdweb-sdk/react/components/roles/admin-only";
 import { Box, Flex, Icon, SimpleGrid } from "@chakra-ui/react";
 import type { DropContract } from "@thirdweb-dev/react";
-import { defineDashboardChain } from "lib/v5-adapter";
+import { useV5DashboardChain } from "lib/v5-adapter";
 import { FiX } from "react-icons/fi";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
 import { getContract } from "thirdweb";
@@ -46,13 +46,16 @@ export const ClaimConditionsPhase: React.FC<ClaimConditionsPhaseProps> = ({
     form.setValue(`phases.${phaseIndex}.isEditing`, !field.isEditing);
   };
 
-  const contractV5 = contract
-    ? getContract({
-        address: contract.getAddress(),
-        chain: defineDashboardChain(contract.chainId),
-        client: thirdwebClient,
-      })
-    : null;
+  const chain = useV5DashboardChain(contract?.chainId);
+
+  const contractV5 =
+    contract && chain
+      ? getContract({
+          address: contract.getAddress(),
+          chain,
+          client: thirdwebClient,
+        })
+      : null;
 
   return (
     <Card position="relative" p={8}>

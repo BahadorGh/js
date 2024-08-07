@@ -9,7 +9,7 @@ import { TransactionButton } from "components/buttons/TransactionButton";
 import { TooltipBox } from "components/configure-networks/Form/TooltipBox";
 import { useTrack } from "hooks/analytics/useTrack";
 import { useTxNotifications } from "hooks/useTxNotifications";
-import { defineDashboardChain } from "lib/v5-adapter";
+import { useV5DashboardChain } from "lib/v5-adapter";
 import { getContract } from "thirdweb";
 import { Text } from "tw-components";
 
@@ -62,13 +62,15 @@ export const ResetClaimEligibility: React.FC<ResetClaimEligibilityProps> = ({
     });
   };
 
-  if (!contract) {
+  const chain = useV5DashboardChain(contract?.chainId);
+
+  if (!contract || !chain) {
     return null;
   }
 
   const contractV5 = getContract({
     address: contract.getAddress(),
-    chain: defineDashboardChain(contract.chainId),
+    chain,
     client: thirdwebClient,
   });
 

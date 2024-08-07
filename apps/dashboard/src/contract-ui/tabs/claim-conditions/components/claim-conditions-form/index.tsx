@@ -35,8 +35,6 @@ import {
   hasLegacyClaimConditions,
   hasMultiphaseClaimConditions,
 } from "lib/claimcondition-utils";
-import { thirdwebClient } from "lib/thirdweb-client";
-import { useV5DashboardChain } from "lib/v5-adapter";
 import { Fragment, createContext, useContext, useMemo, useState } from "react";
 import {
   type UseFieldArrayReturn,
@@ -45,7 +43,11 @@ import {
   useForm,
 } from "react-hook-form";
 import { FiPlus } from "react-icons/fi";
-import { NATIVE_TOKEN_ADDRESS, ZERO_ADDRESS, getContract } from "thirdweb";
+import {
+  NATIVE_TOKEN_ADDRESS,
+  type ThirdwebContract,
+  ZERO_ADDRESS,
+} from "thirdweb";
 import { useActiveAccount } from "thirdweb/react";
 import invariant from "tiny-invariant";
 import { Button, Heading, MenuItem, Text } from "tw-components";
@@ -185,23 +187,15 @@ interface ClaimConditionsFormProps {
   contract: DropContract;
   tokenId?: string;
   isColumn?: true;
+  contractV5: ThirdwebContract;
 }
 
 export const ClaimConditionsForm: React.FC<ClaimConditionsFormProps> = ({
   contract,
   tokenId,
   isColumn,
+  contractV5,
 }) => {
-  const chain = useV5DashboardChain(contract?.chainId);
-  const contractV5 =
-    chain && contract
-      ? getContract({
-          address: contract.getAddress(),
-          chain,
-          client: thirdwebClient,
-        })
-      : null;
-
   const { isMultiPhase, isClaimPhaseV1, isErc20 } = useMemo(() => {
     return {
       isMultiPhase: hasMultiphaseClaimConditions(contract),
@@ -213,7 +207,7 @@ export const ClaimConditionsForm: React.FC<ClaimConditionsFormProps> = ({
   const walletAddress = useActiveAccount()?.address;
   const trackEvent = useTrack();
   const [resetFlag, setResetFlag] = useState(false);
-  const isAdmin = contractV5 ? useIsAdminV2(contractV5) : false;
+  const isAdmin = useIsAdminV2(contractV5);
   const [openSnapshotIndex, setOpenSnapshotIndex] = useState(-1);
   const setClaimConditionsQuery = useSetClaimConditions(contract, tokenId);
 

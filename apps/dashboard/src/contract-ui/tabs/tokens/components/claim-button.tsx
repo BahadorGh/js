@@ -1,6 +1,6 @@
 import { thirdwebClient } from "@/constants/client";
 import { Icon, useDisclosure } from "@chakra-ui/react";
-import { defineDashboardChain } from "lib/v5-adapter";
+import { useV5DashboardChain } from "lib/v5-adapter";
 import { GiDiamondHard } from "react-icons/gi";
 import { getContract } from "thirdweb";
 import { Button, Drawer } from "tw-components";
@@ -17,10 +17,10 @@ export const TokenClaimButton: React.FC<TokenClaimButtonProps> = ({
   ...restButtonProps
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const chain = useV5DashboardChain(chainId);
   const contract = getContract({
     address: contractAddress,
-    chain: defineDashboardChain(chainId),
+    chain,
     client: thirdwebClient,
   });
 
