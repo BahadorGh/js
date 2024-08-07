@@ -2,7 +2,7 @@ import { AdminOnly } from "@3rdweb-sdk/react/components/roles/admin-only";
 import { Box, Flex, Icon, SimpleGrid } from "@chakra-ui/react";
 import { FiX } from "react-icons/fi";
 import { RxCaretDown, RxCaretUp } from "react-icons/rx";
-import { type ThirdwebContract, getContract } from "thirdweb";
+import type { ThirdwebContract } from "thirdweb";
 import { Badge, Button, Card, Heading, Text } from "tw-components";
 import { ClaimConditionTypeData, useClaimConditionsFormContext } from ".";
 import { PricePreview } from "../price-preview";
