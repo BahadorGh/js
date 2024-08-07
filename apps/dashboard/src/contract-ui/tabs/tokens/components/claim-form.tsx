@@ -15,8 +15,10 @@ import {
 import { TransactionButton } from "components/buttons/TransactionButton";
 import { useTrack } from "hooks/analytics/useTrack";
 import { useTxNotifications } from "hooks/useTxNotifications";
+import { thirdwebClient } from "lib/thirdweb-client";
+import { useV5DashboardChain } from "lib/v5-adapter";
 import { useForm } from "react-hook-form";
-import { ZERO_ADDRESS } from "thirdweb";
+import { ZERO_ADDRESS, getContract } from "thirdweb";
 import { useActiveAccount } from "thirdweb/react";
 import {
   FormErrorMessage,
@@ -40,11 +42,20 @@ export const TokenClaimForm: React.FC<TokenClaimFormProps> = ({ contract }) => {
     formState: { errors, isDirty },
   } = useForm({ defaultValues: { amount: "0", to: address } });
   const modalContext = useModalContext();
+  const chain = useV5DashboardChain(contract?.chainId);
+  const contractV5 =
+    contract && chain
+      ? getContract({
+          address: contract.getAddress(),
+          chain: chain,
+          client: thirdwebClient,
+        })
+      : null;
 
   const { onSuccess, onError } = useTxNotifications(
     "Tokens claimed successfully",
     "Failed to claim tokens",
-    contract,
+    contractV5,
   );
 
   const decimals = useTokenDecimals(contract);

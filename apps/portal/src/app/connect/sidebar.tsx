@@ -445,28 +445,38 @@ export const sidebar: SideBar = {
 						},
 
 						{
-							name: "Buy With Fiat",
-							href: `${paySlug}/buy-with-fiat`,
-						},
-						{
-							name: "Buy With Crypto",
-							isCollapsible: true,
-							links: [
-								{
-									name: "Overview",
-									href: `${paySlug}/buy-with-crypto/overview`,
-								},
-								{
-									name: "Fee Sharing",
-									href: `${paySlug}/buy-with-crypto/fee-sharing`,
-								},
-							],
+							name: "Fee Sharing",
+							href: `${paySlug}/fee-sharing`,
 						},
 
 						{
+							name: "Webhooks",
+							href: `${paySlug}/webhooks`,
+						},
+
+						{
+							name: "Guides",
+							isCollapsible: true,
+
+							links: [
+								{
+									name: "Accept Direct Payments",
+									href: `${paySlug}/guides/accept-direct-payments`,
+								},
+								{
+									name: "Build a Custom Experience",
+									href: `${paySlug}/guides/build-a-custom-experience`,
+								},
+								{
+									name: "Enable Test Mode",
+									href: `${paySlug}/guides/test-mode`,
+								},
+							],
+						},
+						{
 							name: "Customization",
 							isCollapsible: true,
-							expanded: true,
+
 							links: [
 								{
 									name: "ConnectButton",
@@ -481,14 +491,6 @@ export const sidebar: SideBar = {
 									href: `${paySlug}/customization/send-transaction`,
 								},
 							],
-						},
-						{
-							name: "Enable Test Mode",
-							href: `${paySlug}/test-mode`,
-						},
-						{
-							name: "Build a Custom Experience",
-							href: `${paySlug}/build-a-custom-experience`,
 						},
 						{
 							name: "FAQs",
