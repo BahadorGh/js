@@ -1,4 +1,3 @@
-import type { NFT } from "@thirdweb-dev/sdk";
 import {
   arbitrum,
   arbitrumNova,
@@ -50,6 +49,15 @@ import {
   zora,
   zoraSepolia,
 } from "thirdweb/chains";
+import type { NFTInput } from "thirdweb/utils";
+
+type NFT = {
+  metadata: NFTInput;
+  owner: string;
+  type: "ERC1155" | "ERC721";
+  supply: string;
+  quantityOwned?: string;
+};
 
 export type WalletNFT = NFT & {
   contractAddress: string;
