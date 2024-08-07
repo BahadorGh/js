@@ -49,7 +49,6 @@ import {
   zora,
   zoraSepolia,
 } from "thirdweb/chains";
-import type { NFTInput } from "thirdweb/utils";
 
 type NFT = {
   metadata: {
