@@ -6,7 +6,6 @@ import {
   getErcs,
 } from "@thirdweb-dev/react/evm";
 import { detectFeatures } from "components/contract-components/utils";
-import { hasNewClaimConditions } from "lib/claimcondition-utils";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
 import type { ThirdwebContract } from "thirdweb";
@@ -74,13 +73,23 @@ export function useNFTDrawerTabs({
   );
 
   const isMinterRole = useIsMinter(contract);
-
+  const hasNewClaimConditions = detectFeatures(oldContract, [
+    // erc721
+    "ERC721ClaimConditionsV2",
+    "ERC721ClaimPhasesV2",
+    // erc1155
+    "ERC1155ClaimConditionsV2",
+    "ERC1155ClaimPhasesV2",
+    // erc20
+    "ERC20ClaimConditionsV2",
+    "ERC20ClaimPhasesV2",
+  ]);
   const contractInfo = useMemo(() => {
     return {
-      hasNewClaimConditions: hasNewClaimConditions(oldContract as DropContract),
+      hasNewClaimConditions,
       isErc20: detectFeatures(oldContract, ["ERC20"]),
     };
-  }, [oldContract]);
+  }, [oldContract, hasNewClaimConditions]);
 
   return useMemo(() => {
     const isMintable = detectFeatures(oldContract, ["ERC1155Mintable"]);
