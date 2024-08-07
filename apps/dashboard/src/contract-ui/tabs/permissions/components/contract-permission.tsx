@@ -1,13 +1,13 @@
+import { useIsAdminV2 } from "@3rdweb-sdk/react/hooks/useContractRoles";
 import { Flex, Icon, Select, Spinner, Stack } from "@chakra-ui/react";
 import type { ValidContractInstance } from "@thirdweb-dev/sdk";
+import { thirdwebClient } from "lib/thirdweb-client";
+import { defineDashboardChain } from "lib/v5-adapter";
 import { useFormContext } from "react-hook-form";
 import { FiInfo } from "react-icons/fi";
-import { getContract, ZERO_ADDRESS } from "thirdweb";
+import { ZERO_ADDRESS, getContract } from "thirdweb";
 import { Card, Heading, Text } from "tw-components";
 import { PermissionEditor } from "./permissions-editor";
-import { useIsAdminV2 } from "@3rdweb-sdk/react/hooks/useContractRoles";
-import { defineDashboardChain } from "lib/v5-adapter";
-import { thirdwebClient } from "lib/thirdweb-client";
 
 interface ContractPermissionProps {
   role: string;
