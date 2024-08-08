@@ -1,5 +1,17 @@
 # thirdweb
 
+## 5.44.2
+
+### Patch Changes
+
+- [#3997](https://github.com/thirdweb-dev/js/pull/3997) [`dd7d28c`](https://github.com/thirdweb-dev/js/commit/dd7d28c44f58cd633dd63e52eed357438a413a48) Thanks [@gregfromstl](https://github.com/gregfromstl)! - Improved serializeTransaction interface to include separate signature input (maintains backwards compatibility)
+
+- [#3986](https://github.com/thirdweb-dev/js/pull/3986) [`4d0e00a`](https://github.com/thirdweb-dev/js/commit/4d0e00a7c41746fec740c889362f84eada536ffb) Thanks [@jarrodwatts](https://github.com/jarrodwatts)! - add abstract l2 chain definition (ZKSync ZK stack)
+
+- [#3989](https://github.com/thirdweb-dev/js/pull/3989) [`a4bc285`](https://github.com/thirdweb-dev/js/commit/a4bc285cb76945dea536d37026da281528490c72) Thanks [@MananTank](https://github.com/MananTank)! - Update the chain object in connection manager and wallets when chain objects passed to UI components are updated.
+
+- [#3996](https://github.com/thirdweb-dev/js/pull/3996) [`2b4629b`](https://github.com/thirdweb-dev/js/commit/2b4629b5058df0731f16322827661fba86f5d898) Thanks [@0xScratch](https://github.com/0xScratch)! - Added Fraxtal and Mode Testnets to the chain-definitions
+
 ## 5.44.1
 
 ### Patch Changes
