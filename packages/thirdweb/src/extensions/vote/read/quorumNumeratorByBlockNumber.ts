@@ -1,5 +1,5 @@
-import { readContract } from "src/transaction/read-contract.js";
-import type { BaseTransactionOptions } from "src/transaction/types.js";
+import { readContract } from "../../../transaction/read-contract.js";
+import type { BaseTransactionOptions } from "../../../transaction/types.js";
 
 export async function quorumNumeratorByBlockNumber(
   options: BaseTransactionOptions<{ blockNumber: bigint }>,
