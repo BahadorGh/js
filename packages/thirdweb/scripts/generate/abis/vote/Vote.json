@@ -14,7 +14,6 @@
   "function proposals(uint256 key) view returns (uint256 proposalId, address proposer, uint256 startBlock, uint256 endBlock, string description)",
   "function quorum(uint256 blockNumber) view returns (uint256)",
   "function quorumDenominator() view returns (uint256)",
-  "function quorumNumerator(uint256 blockNumber) view returns (uint256)",
   "function state(uint256 proposalId) view returns (uint8)",
   "function token() view returns (address)",
   "function votingDelay() view returns (uint256)",
